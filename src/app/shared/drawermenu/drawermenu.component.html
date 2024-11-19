@@ -1,0 +1,25 @@
+<nz-drawer
+[nzClosable]="false"
+[nzVisible]="this.sideSrv.currentSide()"
+nzPlacement="right"
+nzTitle="Menú"
+(nzOnClose)="close()"
+>
+    <ng-container *nzDrawerContent>
+
+        @for (item of this.menu(); track $index) {
+            <a class="flex items-center p-2 hover:bg-gray-100 rounded transition-all" routerLink="{{item.link}}" >
+                <span nz-icon nzType="{{item.icon}}" style="color: gray;"></span>
+                <span class="ml-3 text-sm text-black font-controlG">{{item.name}}</span>
+            </a>
+        }
+
+        <nz-divider></nz-divider>
+
+        <a class="flex items-center p-2 hover:bg-gray-100 rounded transition-all">
+            <span nz-icon nzType="logout" style="color: red;"></span>
+            <span class="ml-3 text-sm text-red-500 font-controlG">Cerrar Sesi&oacute;n</span>
+        </a>
+    </ng-container>
+    
+</nz-drawer>

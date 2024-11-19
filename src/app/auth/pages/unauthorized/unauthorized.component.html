@@ -1,0 +1,72 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-20 w-auto" src="logo.png" alt="siGES">
+      <h2 class="font-controlG mt-10 text-center text-2xl leading-9 tracking-tight">Sesi&oacute;n Caducada</h2>
+    </div>
+  
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="#" method="POST" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 font-controlG text-black">Email</label>
+          <div class="mt-2">
+            <input 
+              formControlName="email"
+              id="email" 
+              name="email" 
+              type="email" 
+              autocomplete="email" 
+              required 
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 pl-4 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              [ngClass]="{ 'ring-red-500': authForm.controls['email'].invalid && authForm.controls['email'].touched }">
+          </div>
+
+          <div *ngIf="authForm.controls['email'].invalid && authForm.controls['email'].touched" class="text-sm text-red-500 mt-1">
+            <span class="font-controlG" *ngIf="authForm.controls['email'].errors?.['required']">El campo email es requerido.</span>
+            <span class="font-controlG" *ngIf="authForm.controls['email'].errors?.['email']">Por favor ingresa un email válido.</span>
+          </div>
+        </div>
+  
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm leading-6 font-medium font-controlG text-black">Password</label>
+          </div>
+          <div class="mt-2">
+            <input id="password" 
+              formControlName="password"   
+              name="password" 
+              type="password" 
+              autocomplete="current-password" 
+              required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 pl-4 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              [ngClass]="{ 'ring-red-500': authForm.controls['password'].invalid && authForm.controls['password'].touched }">
+          </div>
+
+          <div *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched" class="text-sm text-red-500 mt-1">
+            <span class="font-controlG" *ngIf="authForm.controls['password'].errors?.['required']">El campo password es requerido.</span>
+          </div>
+        </div>
+  
+        <div>
+          <button 
+            nz-button 
+            nzType="primary" 
+            nzBlock 
+            nzSize="large"
+            [disabled]="!authForm.valid"
+            [nzLoading]="isLoading"
+          >
+          @if (this.isLoading) {
+            <span class="font-controlG">Por favor espere...</span>
+          } @else {
+            <span class="font-controlG">Iniciar</span>
+          }
+          </button>
+        </div>
+
+      </form>
+  
+      <p class="mt-10 text-center text-sm font-controlG text-gray-600">
+        &copy; {{currentYear }} Todos los Derechos Reservados
+      </p>
+    </div>
+  </div>
+  

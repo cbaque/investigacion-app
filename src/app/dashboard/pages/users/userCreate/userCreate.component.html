@@ -1,0 +1,157 @@
+<div class="flex items-center justify-start">
+
+  <nz-page-header class="site-page-header" (nzBack)="onBackusers()" nzBackIcon>
+  </nz-page-header>
+
+  <app-breadcrumb />
+
+</div>
+
+<div class="container">
+
+  <form action="#" method="POST" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="flex space-x-6">
+  
+      <div class="w-1/4">
+        <nz-steps [nzCurrent]="currentStep" nzDirection="vertical" (nzIndexChange)="onIndexChange($event)" nzSize="small">
+          <nz-step nzTitle="Perfil" class="font-controlG"></nz-step>
+          <nz-step nzTitle="Cargo" class="font-controlG"></nz-step>
+        </nz-steps>
+      </div>
+  
+      <div class="w-3/4">
+  
+        <div *ngIf="currentStep === 0" class="space-y-6">
+  
+          <div>
+            <label for="name" class="block text-sm font-medium leading-6 font-controlG">Nombres *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                formControlName="name"
+                [ngClass]="{ 'ring-red-500': userForm.controls['name'].invalid && userForm.controls['name'].touched }"
+                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                placeholder="">
+            </div>
+
+            <div *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['name'].errors?.['required']">Campo nombres es requerido.</span>
+            </div>
+
+          </div>
+  
+          <div>
+            <label for="email" class="block text-sm font-medium leading-6 font-controlG">Email *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                formControlName="email"
+                [ngClass]="{ 'ring-red-500': userForm.controls['email'].invalid && userForm.controls['email'].touched }"
+                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                placeholder="">
+            </div>
+
+            <div *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['email'].errors?.['required']">Campo email es requerido.</span>
+              <span class="font-controlG" *ngIf="userForm.controls['email'].errors?.['email']">Por favor ingresa un email válido.</span>
+            </div>
+          </div>
+  
+          <div>
+            <label for="password" class="block text-sm font-medium leading-6 font-controlG">Password *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                formControlName="password"
+                [ngClass]="{ 'ring-red-500': userForm.controls['password'].invalid && userForm.controls['password'].touched }"
+                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                placeholder="">
+            </div>
+
+            <div *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['password'].errors?.['required']">Campo password es requerido.</span>
+            </div>
+          </div>
+  
+          <div>
+            <label for="rol" class="block text-sm font-medium leading-6 font-controlG">Rol / Tipo *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <nz-select class="w-full" 
+                nzShowSearch 
+                nzAllowClear 
+                nzPlaceHolder="Seleccione Rol" 
+                formControlName="role" 
+                nzNotFoundContent="No se encontró el rol">
+                @for (role of roles; track role) {
+                  <nz-option nzValue="{{ role.id }}" nzLabel="{{ role.description }}"></nz-option>
+                }
+              </nz-select>
+            </div>
+
+            <div *ngIf="userForm.controls['role'].invalid && userForm.controls['role'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['role'].errors?.['required']">Campo rol es requerido.</span>
+            </div>
+          </div>
+  
+        </div>
+  
+        <div *ngIf="currentStep === 1" class="space-y-6">
+          <div>
+            <label for="position" class="block text-sm font-medium leading-6 font-controlG">Cargo *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <input type="text" 
+                name="position" 
+                id="position" 
+                formControlName="position"
+                [ngClass]="{ 'ring-red-500': userForm.controls['position'].invalid && userForm.controls['position'].touched }"
+                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                placeholder="">
+            </div>
+
+            <div *ngIf="userForm.controls['position'].invalid && userForm.controls['position'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['position'].errors?.['required']">Campo cargo es requerido.</span>
+            </div>
+          </div>
+  
+          <div>
+            <label for="area" class="block text-sm font-medium leading-6 font-controlG">&Aacute;rea *</label>
+            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+              <nz-select class="w-full" nzShowSearch nzAllowClear nzPlaceHolder="Seleccione Área" formControlName="departament" nzNotFoundContent="No se encontró el Área">
+                @for (departament of departaments; track departament) {
+                  <nz-option nzValue="{{ departament.id }}" nzLabel="{{ departament.name }}"></nz-option>
+                }
+              </nz-select>
+            </div>
+
+            <div *ngIf="userForm.controls['departament'].invalid && userForm.controls['departament'].touched" class="text-sm text-red-500 mt-1">
+              <span class="font-controlG" *ngIf="userForm.controls['departament'].errors?.['required']">Campo &Aacute;rea es requerido.</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="pt-4 w-96">
+          <button 
+          class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+          nz-button 
+          nzType="primary" 
+          nzBlock 
+          nzSize="default"
+
+          >
+            Crear
+          </button>
+        </div>
+  
+      </div>
+  
+    </div>
+
+  </form>
+
+</div>

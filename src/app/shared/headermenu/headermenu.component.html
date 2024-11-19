@@ -1,0 +1,44 @@
+<nav class="flex px-5 justify-between items-center w-full">
+    <div>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a nz-tooltip nzTooltipTitle="Inicio" (click)="goToDashboard()">
+                    <span nz-icon nzType="home"></span>
+                    <span class="antialiased font-bold font-controlG">
+                        SIGES
+                    </span>
+                </a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <span nz-icon nzType="user"></span>
+                <span class="font-controlG">{{ authSrv.currentUser()?.user }}</span>
+            </nz-breadcrumb-item>
+
+            <nz-breadcrumb-item>
+                <span class="font-controlG text-gray-400">{{ authSrv.currentUser()?.rol }}</span>
+            </nz-breadcrumb-item>
+
+          </nz-breadcrumb>
+    </div>
+
+    <div class="hidden sm:block">
+        @for (item of menu(); track $index) {
+            <a class="m-2 p-2 rounded-md transition-all hover:bg-gray-100" routerLink="{{item.link}}">
+                <span class="text-black font-controlG">
+                    {{item.name}}
+                </span>
+            </a>
+        }
+    </div>
+
+    <div class="flex items-center">
+        <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100" (click)="logout()">
+            <span nz-icon nzType="logout"></span>
+        </button>
+
+        <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100" (click)="this.sideSrv.setOpenSideMenu()">
+            <span class="font-controlG">Men&uacute;</span>
+        </button>
+
+    </div>
+</nav>

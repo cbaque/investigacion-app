@@ -1,0 +1,18 @@
+
+<ul nz-menu nzMode="inline" class="h-auto w-96">
+    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: states }"></ng-container>
+    <ng-template #menuTpl let-states>
+      @for (menu of states; track menu) {
+        <li
+          nz-menu-item
+          [nzPaddingLeft]="1 * 24"
+          [nzDisabled]="false"
+          [nzSelected]="false"
+          (click)="goToStates()"
+        >
+          <span nz-icon nzType="{{ menu.icon }}" [ngStyle]="{ 'color': menu.color }"></span>
+          <span class="font-controlG">{{ menu.name }}</span>
+        </li>
+      }
+    </ng-template>
+  </ul>
