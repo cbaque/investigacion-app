@@ -24,7 +24,8 @@ import {
           StopOutline, 
           SyncOutline, 
           UserAddOutline, 
-          UserOutline 
+          UserOutline,
+          PlusOutline
         } from '@ant-design/icons-angular/icons';
 
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -47,7 +48,8 @@ const icons: IconDefinition[] = [
   PauseCircleOutline,
   StopOutline,
   CheckCircleOutline,
-  ArrowLeftOutline
+  ArrowLeftOutline,
+  PlusOutline
 ];
 
 registerLocaleData(es);

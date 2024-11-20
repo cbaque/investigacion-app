@@ -35,19 +35,12 @@ export const routes: Routes = [
             },
 
             {
-                path: "states",
-                loadComponent: () => import('./dashboard/pages/states/states.component').then(c => c.StatesComponent),
+                path: "investigation",
+                loadComponent: () => import('./dashboard/pages/research/researchIndex/research.component').then(c => c.ResearchComponent),
                 data: {
-                    breadcrumb: "Disposiciones"
+                    breadcrumb: "Investigación"
                 }
             },
-            {
-                path: "provisions",
-                loadComponent: () => import('./dashboard/pages/provision/provision.component').then(c => c.ProvisionComponent),
-                data: {
-                    breadcrumb: "Crear Disposición"
-                }
-            }
         ]
     },
     {
