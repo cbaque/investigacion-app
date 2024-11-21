@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BreadcrumbComponent } from '@shared/breadcrumb/breadcrumb.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 @Component({
@@ -16,7 +17,8 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
     BreadcrumbComponent,
     NzPageHeaderModule,
     NzStepsModule,
-    NzAlertModule
+    NzAlertModule,
+    NzSliderModule
   ],
   templateUrl: './researchCreate.component.html',
   styleUrl: './researchCreate.component.css',
@@ -30,7 +32,10 @@ export class ResearchCreateComponent {
 
   researchForm = this.formBuilder.group({
     code: [ '', [Validators.required] ],
-    name: [ '', [ Validators.required] ],
+    name_project: [ '', [ Validators.required] ],
+    faculty: [ '' ],
+    rcu: [ '' ],
+    duration: [ '' ],
     budget_1: [ '' ],
     budget_2: [ '' ],
     budget_3: [ '' ],

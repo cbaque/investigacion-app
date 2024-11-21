@@ -39,20 +39,61 @@
                     </div>
 
                     <div>
-                        <label for="name" class="block text-sm font-medium leading-6 font-controlG">Nombre *</label>
+                        <label for="name_project" class="block text-sm font-medium leading-6 font-controlG">Nombre *</label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <input type="text" name="name" id="name" formControlName="name"
-                                [ngClass]="{ 'ring-red-500': researchForm.controls['name'].invalid && researchForm.controls['name'].touched }"
+                            <input type="text" name="name_project" id="name_project" formControlName="name_project"
+                                [ngClass]="{ 'ring-red-500': researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched }"
                                 class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
                                 placeholder="">
                         </div>
 
-                        <div *ngIf="researchForm.controls['name'].invalid && researchForm.controls['name'].touched"
+                        <div *ngIf="researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched"
                             class="text-sm text-red-500 mt-1">
-                            <span class="font-controlG" *ngIf="researchForm.controls['name'].errors?.['required']">Código es requerido.</span>
+                            <span class="font-controlG" *ngIf="researchForm.controls['name_project'].errors?.['required']">Nombre del proyecto es requerido.</span>
                         </div>
 
                     </div>
+
+                    <div>
+                        <label for="faculty" class="block text-sm font-medium leading-6 font-controlG">Facultad</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="faculty" id="faculty" formControlName="faculty"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="rcu" class="block text-sm font-medium leading-6 font-controlG">RCU</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="rcu" id="rcu" formControlName="rcu"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="duration" class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="duration" id="duration" formControlName="duration"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="duration" class="block text-sm font-medium leading-6 font-controlG">Avance</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <nz-slider nzTooltipVisible="always"></nz-slider>
+
+                        </div>
+
+                    </div>
+
+                    
                 </div>
 
                 <div *ngIf="currentStep === 1" class="space-y-6">
