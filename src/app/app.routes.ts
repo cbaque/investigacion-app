@@ -45,7 +45,7 @@ export const routes: Routes = [
                 path: "investigation-new",
                 loadComponent: () => import('./dashboard/pages/research/researchCreate/researchCreate.component').then(c => c.ResearchCreateComponent),
                 data: {
-                    breadcrumb: "Nueva Investigación"
+                    breadcrumb: "Crear Investigación"
                 }
             },
         ]

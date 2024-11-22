@@ -8,7 +8,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { UserCreateComponent } from '../userCreate/userCreate.component';
 import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -22,7 +21,6 @@ import { Router, RouterOutlet } from '@angular/router';
     NzIconModule,
     NzToolTipModule,
     NzModalModule,
-    UserCreateComponent
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
@@ -31,7 +29,6 @@ export class UsersComponent  implements OnInit {
   private userSrv = inject(UsersService)
   public Users: UserDataI[] = [];
   public loadingUsers: boolean = false;
-  private modalSrv = inject(NzModalService);
   private router = inject(Router)
 
   ngOnInit(): void {

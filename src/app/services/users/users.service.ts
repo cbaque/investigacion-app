@@ -5,7 +5,8 @@ import { EnvService } from '../env.service';
   providedIn: 'root'
 })
 export class UsersService {
-  private env = inject(EnvService)
+  private env = inject(EnvService);
+  
   constructor() { }
 
   get() {
