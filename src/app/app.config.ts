@@ -25,7 +25,13 @@ import {
           SyncOutline, 
           UserAddOutline, 
           UserOutline,
-          PlusOutline
+          PlusOutline,
+          UsergroupAddOutline,
+          EditOutline,
+          EditTwoTone,
+          DeleteTwoTone,
+          CloudUploadOutline,
+          FolderViewOutline
         } from '@ant-design/icons-angular/icons';
 
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -49,7 +55,13 @@ const icons: IconDefinition[] = [
   StopOutline,
   CheckCircleOutline,
   ArrowLeftOutline,
-  PlusOutline
+  PlusOutline,
+  UsergroupAddOutline,
+  EditOutline,
+  EditTwoTone,
+  DeleteTwoTone,
+  CloudUploadOutline,
+  FolderViewOutline
 ];
 
 registerLocaleData(es);

@@ -1,0 +1,25 @@
+<h2>Listado de Integrantes :: {{ data.code }}</h2>
+
+
+
+<nz-table #memberTable [nzData]="data.members" nzSize="small" class="font-controlG">
+    <thead >
+      <tr>
+        <th>Nombre de Integrante</th>
+        <th nzWidth="100px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of memberTable.data; track data.id) {
+        <tr>
+          <td>{{ data.user.name }}</td>
+          <td class="space-x-2">
+
+            <span nz-icon nzType="cloud-upload" nzTheme="outline" class="text-lg cursor-pointer" nz-tooltip nzTooltipTitle="Subir Documento"></span>
+            <span nz-icon nzType="folder-view" nzTheme="outline" class="text-lg cursor-pointer" nz-tooltip nzTooltipTitle="Ver Documento"></span>
+  
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>

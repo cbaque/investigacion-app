@@ -1,209 +1,225 @@
 <form action="#" [formGroup]="researchForm">
 
     <div class="flex justify-between items-center">
-    
+
         <div class="flex items-center">
             <nz-page-header class="site-page-header" (nzBack)="onBackInvestigation()" nzBackIcon />
             <app-breadcrumb />
-    
+
         </div>
-    
-    
-    
+
+
+
         <div class="flex items-center p-5 space-x-7">
-    
-            <nz-select formControlName="status"  nzPlaceHolder="Seleccione Estado">
+
+            <nz-select formControlName="status" nzPlaceHolder="Seleccione Estado">
                 <nz-option nzValue="E" nzLabel="En ejecución"></nz-option>
                 <nz-option nzValue="F" nzLabel="Finalizado"></nz-option>
             </nz-select>
-    
+
             <button nz-button nzType="primary" nzBlock nzSize="default" (click)="submitNewResearch()"
                 class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
                 Crear
             </button>
-    
+
         </div>
-    
+
     </div>
-    
+
     <div class="container">
-        
-    
-            <div class="flex space-x-6">
-                <div class="w-1/4">
-                    <nz-steps [nzCurrent]="currentStep" nzDirection="vertical" (nzIndexChange)="onIndexChange($event)"
-                        nzSize="small">
-                        <nz-step nzTitle="Datos Generales" class="font-controlG"></nz-step>
-                        <nz-step nzTitle="Presupuestos" class="font-controlG"></nz-step>
-                        <nz-step nzTitle="Integrantes" class="font-controlG"></nz-step>
-                    </nz-steps>
+
+
+        <div class="flex space-x-6">
+            <div class="w-1/4">
+                <nz-steps [nzCurrent]="currentStep" nzDirection="vertical" (nzIndexChange)="onIndexChange($event)"
+                    nzSize="small">
+                    <nz-step nzTitle="Datos Generales" class="font-controlG"></nz-step>
+                    <nz-step nzTitle="Presupuestos" class="font-controlG"></nz-step>
+                    <nz-step nzTitle="Integrantes" class="font-controlG"></nz-step>
+                </nz-steps>
+            </div>
+
+            <div class="w-3/4">
+                <div *ngIf="currentStep === 0" class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="code" class="block text-sm font-medium leading-6 font-controlG">Código *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="code" id="code" formControlName="code"
+                                [ngClass]="{ 'ring-red-500': researchForm.controls['code'].invalid && researchForm.controls['code'].touched }"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                        <div *ngIf="researchForm.controls['code'].invalid && researchForm.controls['code'].touched"
+                            class="text-sm text-red-500 mt-1">
+                            <span class="font-controlG"
+                                *ngIf="researchForm.controls['code'].errors?.['required']">Código es requerido.</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="name_project" class="block text-sm font-medium leading-6 font-controlG">Nombre
+                            *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <textarea nz-input formControlName="name_project"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                [ngClass]="{ 'ring-red-500': researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched }"
+                                [nzAutosize]="{ minRows: 2, maxRows: 5 }">
+                                </textarea>
+                        </div>
+
+                        <div *ngIf="researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched"
+                            class="text-sm text-red-500 mt-1">
+                            <span class="font-controlG"
+                                *ngIf="researchForm.controls['name_project'].errors?.['required']">Nombre del proyecto
+                                es requerido.</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="rcu" class="block text-sm font-medium leading-6 font-controlG">RCU *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="rcu" id="rcu" formControlName="rcu"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                        <div *ngIf="researchForm.controls['rcu'].invalid && researchForm.controls['rcu'].touched"
+                            class="text-sm text-red-500 mt-1">
+                            <span class="font-controlG" *ngIf="researchForm.controls['rcu'].errors?.['required']">RCU es
+                                requerido.</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="faculty" class="block text-sm font-medium leading-6 font-controlG">Facultad
+                            *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <textarea nz-input formControlName="faculty"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                [ngClass]="{ 'ring-red-500': researchForm.controls['faculty'].invalid && researchForm.controls['faculty'].touched }"
+                                [nzAutosize]="{ minRows: 2, maxRows: 5 }">
+                                </textarea>
+                        </div>
+
+                        <div *ngIf="researchForm.controls['faculty'].invalid && researchForm.controls['faculty'].touched"
+                            class="text-sm text-red-500 mt-1">
+                            <span class="font-controlG"
+                                *ngIf="researchForm.controls['faculty'].errors?.['required']">Facultad es
+                                requerido.</span>
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+                        <label for="duration"
+                            class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="duration" id="duration" formControlName="duration"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                        <div *ngIf="researchForm.controls['duration'].invalid && researchForm.controls['duration'].touched"
+                            class="text-sm text-red-500 mt-1">
+                            <span class="font-controlG" *ngIf="researchForm.controls['duration'].errors?.['required']">Duraci&oacute;n es
+                                requerido.</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="impact" class="block text-sm font-medium leading-6 font-controlG">Impacto</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="impact" id="impact" formControlName="impact"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="observation"
+                            class="block text-sm font-medium leading-6 font-controlG">Observaci&oacute;n</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <textarea nz-input formControlName="observation"
+                                [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label for="advanced" class="block text-sm font-medium leading-6 font-controlG">Avance *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <nz-slider nzTooltipVisible="always" [formControl]="advanceControl"></nz-slider>
+                        </div>
+                    </div>
+
+
                 </div>
-    
-                <div class="w-3/4">
-                    <div *ngIf="currentStep === 0" class="grid grid-cols-2 gap-6">
-                        <div>
-                            <label for="code" class="block text-sm font-medium leading-6 font-controlG">Código *</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="code" id="code" formControlName="code"
-                                    [ngClass]="{ 'ring-red-500': researchForm.controls['code'].invalid && researchForm.controls['code'].touched }"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                            <div *ngIf="researchForm.controls['code'].invalid && researchForm.controls['code'].touched"
-                                class="text-sm text-red-500 mt-1">
-                                <span class="font-controlG"
-                                    *ngIf="researchForm.controls['code'].errors?.['required']">Código es requerido.</span>
-                            </div>
-    
+
+                <div *ngIf="currentStep === 1" class="space-y-6">
+
+                    <div>
+                        <label for="budget_one" class="block text-sm font-medium leading-6 font-controlG">Primer
+                            Año</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="budget_one" id="budget_one" formControlName="budget_one"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
                         </div>
-    
-                        <div>
-                            <label for="name_project" class="block text-sm font-medium leading-6 font-controlG">Nombre
-                                *</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="name_project" id="name_project" formControlName="name_project"
-                                    [ngClass]="{ 'ring-red-500': researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched }"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                            <div *ngIf="researchForm.controls['name_project'].invalid && researchForm.controls['name_project'].touched"
-                                class="text-sm text-red-500 mt-1">
-                                <span class="font-controlG"
-                                    *ngIf="researchForm.controls['name_project'].errors?.['required']">Nombre del proyecto
-                                    es requerido.</span>
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="faculty" class="block text-sm font-medium leading-6 font-controlG">Facultad</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="faculty" id="faculty" formControlName="faculty"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="rcu" class="block text-sm font-medium leading-6 font-controlG">RCU</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="rcu" id="rcu" formControlName="rcu"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="duration"
-                                class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="duration" id="duration" formControlName="duration"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="impact" class="block text-sm font-medium leading-6 font-controlG">Impacto</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="impact" id="impact" formControlName="impact"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="observation"
-                                class="block text-sm font-medium leading-6 font-controlG">Observaci&oacute;n</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <textarea nz-input formControlName="observation"
-                                    [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="duration" class="block text-sm font-medium leading-6 font-controlG">Avance</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <nz-slider 
-                                nzTooltipVisible="always"
-                                [formControl]="advanceControl"
-                                ></nz-slider>
-    
-                            </div>
-    
-                        </div>
-    
-    
+
                     </div>
-    
-                    <div *ngIf="currentStep === 1" class="space-y-6">
-    
-                        <div>
-                            <label for="budget_1" class="block text-sm font-medium leading-6 font-controlG">Primer
-                                Año</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="budget_1" id="budget_1" formControlName="budget_1"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
+
+                    <div>
+                        <label for="budget_two" class="block text-sm font-medium leading-6 font-controlG">Segundo
+                            Año</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="budget_two" id="budget_two" formControlName="budget_two"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
                         </div>
-    
-                        <div>
-                            <label for="budget_2" class="block text-sm font-medium leading-6 font-controlG">Segundo
-                                Año</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="budget_2" id="budget_2" formControlName="budget_2"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
-                        <div>
-                            <label for="budget_3" class="block text-sm font-medium leading-6 font-controlG">Tercer
-                                Año</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <input type="text" name="budget_3" id="budget_3" formControlName="budget_3"
-                                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                    placeholder="">
-                            </div>
-    
-                        </div>
-    
+
                     </div>
-    
-                    <div *ngIf="currentStep === 2" class="space-y-6">
-    
-                        <div>
-                            <label for="rol" class="block text-sm font-medium leading-6 font-controlG">Integrantes *</label>
-                            <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                                <nz-select 
-                                    class="w-full" 
-                                    nzShowSearch 
-                                    nzAllowClear 
-                                    nzMode="multiple"
-                                    nzPlaceHolder="Seleccione uno o mas Integrante(s)"
-                                    formControlName="members" nzNotFoundContent="No se encontró el integrante">
-                                    @for (member of members; track member) {
-                                    <nz-option nzValue="{{ member.id }}" nzLabel="{{ member.name }}"></nz-option>
-                                    }
-                                </nz-select>
-                            </div>
-    
-    
+
+                    <div>
+                        <label for="budget_three" class="block text-sm font-medium leading-6 font-controlG">Tercer
+                            Año</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <input type="text" name="budget_three" id="budget_three" formControlName="budget_three"
+                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
+                                placeholder="">
                         </div>
-    
+
                     </div>
+
+                </div>
+
+                <div *ngIf="currentStep === 2" class="space-y-6">
+
+                    <div>
+                        <label for="rol" class="block text-sm font-medium leading-6 font-controlG">Integrantes *</label>
+                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
+                            <nz-select class="w-full" nzShowSearch nzAllowClear nzMode="multiple"
+                                nzPlaceHolder="Seleccione uno o mas Integrante(s)" formControlName="members"
+                                nzNotFoundContent="No se encontró el integrante">
+                                @for (member of members; track member) {
+                                <nz-option nzValue="{{ member.id }}" nzLabel="{{ member.name }}"></nz-option>
+                                }
+                            </nz-select>
+                        </div>
+
+
+                    </div>
+
                 </div>
             </div>
-    
+        </div>
+
     </div>
 </form>

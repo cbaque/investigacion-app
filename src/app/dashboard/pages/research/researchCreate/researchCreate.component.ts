@@ -13,6 +13,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { UsersService } from '@services/users/users.service';
 import { UserDataI, UsersI } from '@interfaces/UsersI';
+import { ResearchService } from '@services/research/research.service';
+import { ModalConfirmService } from '@services/modalConfirm/modalConfirm.service';
+import { LoadingService } from '@services/loading/loading.service';
+import { AlertsService } from '@services/notification/alerts.service';
+import { ResearchI } from '@app/app/interfaces/ResearchI';
 
 @Component({
   selector: 'app-research-create',
@@ -38,7 +43,11 @@ export class ResearchCreateComponent implements OnInit {
 
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
-  private userSrv = inject(UsersService)
+  private userSrv = inject(UsersService);
+  private researchSrv = inject(ResearchService);
+  public confirmSrv = inject(ModalConfirmService);
+  private loadingSrv = inject(LoadingService);
+  private alertSrv = inject(AlertsService);
 
   public currentStep = 0;
   public members: UserDataI[] | null = null;
@@ -46,17 +55,17 @@ export class ResearchCreateComponent implements OnInit {
   researchForm = this.formBuilder.group({
     code: [ '', [Validators.required] ],
     name_project: [ '', [ Validators.required] ],
-    faculty: [ '' ],
-    rcu: [ '' ],
-    duration: [ '' ],
-    advance: [ 0 ],
+    faculty: [ '', [ Validators.required] ],
+    rcu: [ '', [ Validators.required] ],
+    duration: [ '', [ Validators.required] ],
+    advance: [ 0, [ Validators.required]  ],
     impact: [ '' ],
     members: [ [] ],
     observation: [ '' ],
-    budget_1: [ '' ],
-    budget_2: [ '' ],
-    budget_3: [ '' ],
-    status: [ 'E' ],
+    budget_one: [ '' ],
+    budget_two: [ '' ],
+    budget_three: [ '' ],
+    status: [ 'E', [ Validators.required] ],
   });
 
   onBackInvestigation() {
@@ -87,8 +96,25 @@ export class ResearchCreateComponent implements OnInit {
   }
 
   submitNewResearch() {
-    const controls = this.researchForm.value
-    console.log(controls)
+    this.confirmSrv.setOpenModalConfirm('¿Crear Archivo de Investigación?', '¿Está seguro crear el siguiente arhivo?', ()=> {
+
+      const data = this.researchForm.value
+
+      this.confirmSrv.setCloseModalConfirm();
+      this.loadingSrv.setOpenLoading();
+
+      this.researchSrv.post(data)
+      .subscribe(
+        (res: ResearchI) => {
+          this.alertSrv.showSuccess(res.message || "");
+          this.loadingSrv.setCloseLoading();
+          this.onBackInvestigation();
+        },
+        () => this.loadingSrv.setCloseLoading()
+
+      )
+
+    });
   }
 
 }
