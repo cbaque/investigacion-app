@@ -48,6 +48,44 @@ export const routes: Routes = [
                     breadcrumb: "Crear Investigación"
                 }
             },
+
+            {
+                path: "scientist",
+                loadComponent: () => import('./dashboard/pages/scientist/scientist/scientist.component').then(c => c.ScientistComponent),
+                data: {
+                    breadcrumb: "Producción"
+                },
+                children : [
+                    {
+                        path: "articles",
+                        loadComponent: () => import('./dashboard/pages/scientist/articles/articleIndex/articles.component').then(c => c.ArticlesComponent),
+                        data: {
+                            breadcrumb: "Articulos"
+                        }
+                    },
+                    {
+                        path: "books",
+                        loadComponent: () => import('./dashboard/pages/scientist/books/books.component').then(c => c.BooksComponent),
+                        data: {
+                            breadcrumb: "Libros"
+                        }
+                    },
+                    {
+                        path: "",
+                        loadComponent: () => import('./dashboard/pages/scientist/articles/articleIndex/articles.component').then(c => c.ArticlesComponent),
+                        data: {
+                            breadcrumb: "Articulos"
+                        }
+                    },
+                    {
+                        path: "articles-new",
+                        loadComponent: () => import('./dashboard/pages/scientist/articles/articleCreate/articleCreate.component').then(c => c.ArticleCreateComponent),
+                        data: {
+                            breadcrumb: "Crear Investigación"
+                        }
+                    },
+                ]
+            },
         ]
     },
     {

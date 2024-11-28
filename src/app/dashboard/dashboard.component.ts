@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeadermenuComponent } from '@shared/headermenu/headermenu.component';
 import { DrawermenuComponent } from '@shared/drawermenu/drawermenu.component';
-import { StatesmenuComponent } from '@shared/statesmenu/statesmenu.component';
 import { ModalConfirmComponent } from "@shared/modalConfirm/modalConfirm.component";
 import { LoadingComponent } from '@shared/loading/loading.component';
 
@@ -15,7 +14,6 @@ import { LoadingComponent } from '@shared/loading/loading.component';
     RouterModule,
     HeadermenuComponent,
     DrawermenuComponent,
-    StatesmenuComponent,
     ModalConfirmComponent,
     LoadingComponent
 ],
