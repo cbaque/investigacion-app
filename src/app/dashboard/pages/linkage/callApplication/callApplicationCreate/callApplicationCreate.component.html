@@ -1,0 +1,37 @@
+<h2>Crear Convocatoria</h2>
+
+<div class="container">
+    <div class="flex flex-col space-y-6 w-full">
+        <!-- Campo Nombre -->
+        <div class="w-full">
+            <label 
+                for="name_project" 
+                class="block text-sm font-medium leading-6 font-controlG">
+                Nombre *
+            </label>
+            <div class="relative mt-2 rounded-md shadow-sm w-full">
+                <textarea nz-input
+                    class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    [nzAutosize]="{ minRows: 2, maxRows: 5 }">
+                </textarea>
+            </div>
+        </div>
+
+        <!-- Componente de carga -->
+        <div class="w-full">
+            <nz-upload
+                nzType="drag"
+                [nzMultiple]="true"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76">
+                <p class="ant-upload-drag-icon">
+                    <span nz-icon nzType="inbox"></span>
+                </p>
+                <p class="ant-upload-text">Haz clic o arrastra archivos a esta área para subirlos</p>
+                <p class="ant-upload-hint">
+                    Formatos aceptado PDF
+                </p>
+            </nz-upload>
+        </div>
+    </div>
+</div>
+

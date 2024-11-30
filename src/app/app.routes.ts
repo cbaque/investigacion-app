@@ -86,6 +86,38 @@ export const routes: Routes = [
                     },
                 ]
             },
+
+
+            {
+                path: "linkage",
+                loadComponent: () => import("./dashboard/pages/linkage/linkage/linkage.component").then(c => c.LinkageComponent),
+                data: {
+                    breadcrumb: "Vinculación"
+                },
+                children : [
+                    {
+                        path: "call/applications",
+                        loadComponent: () => import('./dashboard/pages/linkage/callApplication/callApplicationIndex/callApplicationIndex.component').then(c => c.CallApplicationIndexComponent),
+                        data: {
+                            breadcrumb: "Convocatorias"
+                        }
+                    },
+                    {
+                        path: "proposal",
+                        loadComponent: () => import('./dashboard/pages/linkage/proposal/proposal.component').then(c => c.ProposalComponent),
+                        data: {
+                            breadcrumb: "Propuestas"
+                        }
+                    },
+                    {
+                        path: "",
+                        loadComponent: () => import('./dashboard/pages/linkage/callApplication/callApplicationIndex/callApplicationIndex.component').then(c => c.CallApplicationIndexComponent),
+                        data: {
+                            breadcrumb: "Convocatorias"
+                        }
+                    },
+                ]
+            }
         ]
     },
     {

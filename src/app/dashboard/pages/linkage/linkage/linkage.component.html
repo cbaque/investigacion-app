@@ -1,0 +1,23 @@
+<div class="flex flex-row">
+    <div class="mr-4">
+      <ul nz-menu nzMode="inline" class="w-10 h-full">
+        <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: states }"></ng-container>
+        <ng-template #menuTpl let-states>
+          @for (menu of states; track menu) {
+            <li
+              nz-menu-item
+              [nzDisabled]="false"
+              routerLink="{{menu.link}}"
+              nzSelected="{{menu.selected}}"
+            >
+              <span class="font-controlG">{{ menu.name }}</span>
+            </li>
+          }
+        </ng-template>
+      </ul>
+    </div>
+  
+    <div class="w-full">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
