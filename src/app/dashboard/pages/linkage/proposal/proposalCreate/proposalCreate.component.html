@@ -1,0 +1,146 @@
+<div class="flex justify-between items-center">
+
+    <div class="flex items-center">
+        <nz-page-header class="site-page-header" (nzBack)="onBackProposalIndex()" nzBackIcon />
+        <app-breadcrumb />
+
+    </div>
+
+    <div class="flex items-center p-5 space-x-7">
+
+        <button nz-button nzType="primary" nzBlock nzSize="default"
+            class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            Crear
+        </button>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="flex space-x-6">
+        <div class="w-1/4">
+            <nz-steps [nzCurrent]="currentStep" 
+                nzDirection="vertical" 
+                (nzIndexChange)="onIndexChange($event)"
+                nzSize="small">
+                <nz-step nzTitle="Información General del Proyecto" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Datos Entidad Beneficiaria" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Propuesta" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Antecendente y Justificación" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Objetivos y Actividades" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Cronograma de Actividades Fase 1" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Cronograma de Actividades Fase 1" class="font-controlG"></nz-step>
+                <nz-step nzTitle="Matriz Marco Lógico" class="font-controlG"></nz-step>
+            </nz-steps>
+        </div>
+
+        <div class="w-3/4">
+            <div *ngIf="currentStep === 0" class="space-y-6">
+
+                  <div class="p-4 border rounded-lg shadow-md">
+                    <!-- Nombre del Programa -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">NOMBRE DEL PROGRAMA</label>
+                      <input nz-input placeholder="Ingrese el nombre del programa" class="w-full" />
+                    </div>
+                  
+                    <!-- Nombre del Proyecto -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">NOMBRE DEL PROYECTO</label>
+                      <input nz-input placeholder="Ingrese el nombre del proyecto" class="w-full" />
+                    </div>
+                  
+                    <!-- Código del Proyecto -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">CÓDIGO DEL PROYECTO</label>
+                      <input nz-input placeholder="Ingrese el código del proyecto" class="w-full" />
+                    </div>
+                  
+                    <!-- Coordinador del Proyecto -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">COORDINADOR DEL PROYECTO</label>
+                      <div class="grid grid-cols-2 gap-4">
+                        <!-- Principal -->
+                        <div>
+                          <div class="font-semibold">Principal</div>
+                          <input nz-input placeholder="Apellidos y Nombres" class="w-full mt-2 mb-2" />
+                          <input nz-input placeholder="Cédula" class="w-full mb-2" />
+                          <input nz-input placeholder="Email" class="w-full mb-2" />
+                          <input nz-input placeholder="Celular" class="w-full" />
+                        </div>
+                  
+                        <!-- Subrogante -->
+                        <div>
+                          <div class="font-semibold">Subrogante</div>
+                          <input nz-input placeholder="Apellidos y Nombres" class="w-full mt-2 mb-2" />
+                          <input nz-input placeholder="Cédula" class="w-full mb-2" />
+                          <input nz-input placeholder="Email" class="w-full mb-2" />
+                          <input nz-input placeholder="Celular" class="w-full" />
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <!-- Dependencia -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">DEPENDENCIA</label>
+                      <input nz-input placeholder="Facultad" class="w-full mb-2" />
+                      <input nz-input placeholder="Carrera" class="w-full mb-2" />
+                      <input nz-input placeholder="Otra" class="w-full" />
+                    </div>
+                  
+                    <!-- Periodo Académico -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">PERIODO ACADÉMICO</label>
+                      <div class="grid grid-cols-2 gap-4">
+
+                      </div>
+                    </div>
+                  
+                    <!-- Número de Horas de Vinculación -->
+                    <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">NÚMERO DE HORAS DE VINCULACIÓN</label>
+                      <input nz-input placeholder="Ingrese el número de horas" class="w-full" />
+                    </div>
+                  </div>
+                  
+
+            </div>
+
+            <div *ngIf="currentStep === 1" class="space-y-6">
+
+
+            </div>
+
+            <div *ngIf="currentStep === 2" class="space-y-6">
+
+            </div>
+
+
+            <div *ngIf="currentStep === 3" class="space-y-6">
+
+            </div>
+
+            <div *ngIf="currentStep === 4" class="space-y-6">
+
+            </div>
+
+
+            <div *ngIf="currentStep === 5" class="space-y-6">
+
+            </div>
+
+            <div *ngIf="currentStep === 6" class="space-y-6">
+
+            </div>
+
+
+            <div *ngIf="currentStep === 6" class="space-y-6">
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

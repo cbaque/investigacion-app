@@ -104,9 +104,16 @@ export const routes: Routes = [
                     },
                     {
                         path: "proposal",
-                        loadComponent: () => import('./dashboard/pages/linkage/proposal/proposal.component').then(c => c.ProposalComponent),
+                        loadComponent: () => import('./dashboard/pages/linkage/proposal/proposalIndex/proposalIndex.component').then(c => c.ProposalIndexComponent),
                         data: {
                             breadcrumb: "Propuestas"
+                        }
+                    },
+                    {
+                        path: "proposal-new",
+                        loadComponent: () => import('./dashboard/pages/linkage/proposal/proposalCreate/proposalCreate.component').then(c => c.ProposalCreateComponent),
+                        data: {
+                            breadcrumb: "Crear Propuesta"
                         }
                     },
                     {

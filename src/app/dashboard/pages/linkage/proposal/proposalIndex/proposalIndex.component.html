@@ -1,0 +1,28 @@
+<div class="flex justify-between items-center">
+    <app-breadcrumb />
+
+    <div>
+        <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
+            <span nz-icon nzType="plus" class="text-lg" nz-tooltip nzTooltipTitle="Crear nuevo registro" (click)="newProposal()"></span>
+        </button>
+
+        <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
+            <span nz-icon nzType="sync" class="text-lg" nz-tooltip nzTooltipTitle="Actualizar registro"></span>
+        </button>
+    </div>
+</div>
+
+<nz-table #basicTable [nzData]="proposalInfo" nzSize="small" [nzLoading]="loadingProposal" class="font-controlG">
+    <thead >
+      <tr>
+        <th>Nombre de Proyecto</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data.id) {
+        <tr>
+          <td>{{ data.name }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
