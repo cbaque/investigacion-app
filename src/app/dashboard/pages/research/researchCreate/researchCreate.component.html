@@ -8,8 +8,6 @@
 
         </div>
 
-
-
         <div class="flex items-center p-5 space-x-7">
 
             <nz-select formControlName="status" nzPlaceHolder="Seleccione Estado">
@@ -114,8 +112,6 @@
 
                     </div>
 
-
-
                     <div>
                         <label for="duration"
                             class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n *</label>
@@ -144,58 +140,62 @@
                     </div>
 
                     <div>
-                        <label for="observation"
-                            class="block text-sm font-medium leading-6 font-controlG">Observaci&oacute;n</label>
+                        <label for="dateIni"
+                            class="block text-sm font-medium leading-6 font-controlG">Fecha de Inicio
+                        </label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <textarea nz-input formControlName="observation"
-                                [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full" formControlName="date_ini"></nz-date-picker>
                         </div>
-
                     </div>
 
                     <div>
-                        <label for="advanced" class="block text-sm font-medium leading-6 font-controlG">Avance *</label>
+                        <label for="dateEnd"
+                            class="block text-sm font-medium leading-6 font-controlG">Fecha de Culminaci&oacute;n
+                        </label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <nz-slider nzTooltipVisible="always" [formControl]="advanceControl"></nz-slider>
+                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full" formControlName="date_end"></nz-date-picker>
                         </div>
                     </div>
-
 
                 </div>
 
                 <div *ngIf="currentStep === 1" class="space-y-6">
 
-                    <div>
-                        <label for="budget_one" class="block text-sm font-medium leading-6 font-controlG">Primer
-                            Año</label>
-                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <input type="text" name="budget_one" id="budget_one" formControlName="budget_one"
-                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                placeholder="">
-                        </div>
-
+                    <div class="flex flex-row">
+                        <button nz-button (click)="addPresupuesto()" >Agregar presupuesto</button>
                     </div>
 
-                    <div>
-                        <label for="budget_two" class="block text-sm font-medium leading-6 font-controlG">Segundo
-                            Año</label>
-                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <input type="text" name="budget_two" id="budget_two" formControlName="budget_two"
-                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                placeholder="">
-                        </div>
-
-                    </div>
-
-                    <div>
-                        <label for="budget_three" class="block text-sm font-medium leading-6 font-controlG">Tercer
-                            Año</label>
-                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <input type="text" name="budget_three" id="budget_three" formControlName="budget_three"
-                                class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
-                                placeholder="">
-                        </div>
-
+                    <div class="flex flex-row">
+                        
+                        <nz-table #PresupuestoTable [nzData]="Integrantes" nzSize="small" class="font-controlG">
+                            <thead >
+                                <tr>
+                                    <th nzWidth="250px">Año de Presupuesto</th>
+                                    <th nzWidth="250px">Valor</th>
+                                    <th nzWidth="100px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @for (data of PresupuestoTable.data; track data) {
+                                <tr class="editable-row">
+                                    <td>{{ data.date }}</td>
+                                    <td>
+                                        @if(editId === data.id) {
+                                            <input nz-input [(ngModel)]="data.value" />
+                                        } @else {
+                                            {{ data.value }}
+                                        }
+                            
+                                    </td>
+                                    <td>
+                                        <button nz-button nzType="link" *ngIf="editId !== data.id" (click)="startEdit(data.id)">Editar</button>
+                                        <button nz-button nzType="link" *ngIf="editId === data.id" (click)="saveEdit(data.id)">Guardar</button>
+                                        <button nz-button nzType="link" *ngIf="editId === data.id" (click)="cancelEdit()">Cancelar</button>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </nz-table>
                     </div>
 
                 </div>

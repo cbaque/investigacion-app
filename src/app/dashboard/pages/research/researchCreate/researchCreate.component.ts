@@ -18,6 +18,14 @@ import { ModalConfirmService } from '@services/modalConfirm/modalConfirm.service
 import { LoadingService } from '@services/loading/loading.service';
 import { AlertsService } from '@services/notification/alerts.service';
 import { ResearchI } from '@app/app/interfaces/ResearchI';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+
+interface IntegrantesData {
+  id: number,
+  date: number;
+  value: string;
+}
 
 @Component({
   selector: 'app-research-create',
@@ -34,7 +42,9 @@ import { ResearchI } from '@app/app/interfaces/ResearchI';
     NzButtonModule,
     NzInputModule,
     NzSelectModule,
-    FormsModule
+    FormsModule,
+    NzTableModule,
+    NzDatePickerModule
   ],
   templateUrl: './researchCreate.component.html',
   styleUrl: './researchCreate.component.css',
@@ -52,20 +62,26 @@ export class ResearchCreateComponent implements OnInit {
   public currentStep = 0;
   public members: UserDataI[] | null = null;
 
+  public Integrantes: IntegrantesData[] = [];
+  editId: number | null = null;
+
+
   researchForm = this.formBuilder.group({
     code: [ '', [Validators.required] ],
     name_project: [ '', [ Validators.required] ],
     faculty: [ '', [ Validators.required] ],
     rcu: [ '', [ Validators.required] ],
     duration: [ '', [ Validators.required] ],
-    advance: [ 0, [ Validators.required]  ],
+    // advance: [ 0, [ Validators.required]  ],
     impact: [ '' ],
     members: [ [] ],
-    observation: [ '' ],
+    // observation: [ '' ],
     budget_one: [ '' ],
     budget_two: [ '' ],
     budget_three: [ '' ],
     status: [ 'E', [ Validators.required] ],
+    date_ini: [ '' ],
+    date_end: [ '' ],
   });
 
   onBackInvestigation() {
@@ -91,9 +107,9 @@ export class ResearchCreateComponent implements OnInit {
   }
 
 
-  get advanceControl(): FormControl {
-    return this.researchForm.get('advance') as FormControl;
-  }
+  // get advanceControl(): FormControl {
+  //   return this.researchForm.get('advance') as FormControl;
+  // }
 
   submitNewResearch() {
     this.confirmSrv.setOpenModalConfirm('¿Crear Archivo de Investigación?', '¿Está seguro crear el siguiente arhivo?', ()=> {
@@ -115,6 +131,53 @@ export class ResearchCreateComponent implements OnInit {
       )
 
     });
+  }
+
+  public addPresupuesto(): void {
+    const dateIni = this.researchForm.get('date_ini')?.value;
+    
+    if (dateIni){
+      const baseYear = new Date(dateIni).getFullYear();
+      let nextYear: number;
+
+      if (this.Integrantes.length === 0) {
+        nextYear = baseYear;
+      } else {
+          const lastYear = Math.max(...this.Integrantes.map(item => item.date));
+          nextYear = lastYear + 1;
+      }
+
+      let contador = this.Integrantes.length + 1;
+      this.Integrantes = [
+        ...this.Integrantes,
+        {
+          id: contador,
+          date: Number(nextYear),
+          value: ""
+        }
+      ]
+    }
+  }
+
+  startEdit(id: number): void {
+    this.editId = id;
+  }
+
+  saveEdit(id: number): void {
+
+    const editedItemIndex = this.Integrantes.findIndex(item => item.id === id);
+    console.log(editedItemIndex)
+
+    const updatedValue = this.Integrantes[editedItemIndex].value;
+    console.log(updatedValue)
+
+    this.editId = null;
+    // Aquí puedes guardar los datos en el servidor si es necesario.
+  }
+
+  cancelEdit(): void {
+    this.editId = null;
+    // Opcional: restaurar valores originales si no guardas inmediatamente.
   }
 
 }
