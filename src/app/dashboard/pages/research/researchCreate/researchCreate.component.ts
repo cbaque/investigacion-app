@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreadcrumbComponent } from '@shared/breadcrumb/breadcrumb.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -21,7 +21,7 @@ import { ResearchI } from '@app/app/interfaces/ResearchI';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
-interface IntegrantesData {
+interface PresupuestoData {
   id: number,
   date: number;
   value: string;
@@ -62,7 +62,7 @@ export class ResearchCreateComponent implements OnInit {
   public currentStep = 0;
   public members: UserDataI[] | null = null;
 
-  public Integrantes: IntegrantesData[] = [];
+  public presupuesto: PresupuestoData[] = [];
   editId: number | null = null;
 
 
@@ -74,15 +74,24 @@ export class ResearchCreateComponent implements OnInit {
     duration: [ '', [ Validators.required] ],
     // advance: [ 0, [ Validators.required]  ],
     impact: [ '' ],
-    members: [ [] ],
+    members: this.formBuilder.array([]),
     // observation: [ '' ],
-    budget_one: [ '' ],
-    budget_two: [ '' ],
-    budget_three: [ '' ],
+    // budget_one: [ '' ],
+    // budget_two: [ '' ],
+    // budget_three: [ '' ],
     status: [ 'E', [ Validators.required] ],
     date_ini: [ '' ],
     date_end: [ '' ],
+    budgets : this.formBuilder.array([])
   });
+
+  get presupuestoFormArray(): FormArray {
+    return this.researchForm.get('budgets') as FormArray;
+  }
+
+  get memberFormArray(): FormArray {
+    return this.researchForm.get('members') as FormArray;
+  }
 
   onBackInvestigation() {
     this.router.navigate(["/dashboard/investigation"]);
@@ -93,28 +102,27 @@ export class ResearchCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadMembers();
+    // this.loadMembers();
   }
 
-  public loadMembers() {
-    this.userSrv.get()
-    .subscribe(  
-      (res: UsersI) => { 
-        const users = res.data;
-        this.members =  users.filter(user => user.roles.some(role => role.name === 'researcher'));
-      }
-    )
-  }
-
-
-  // get advanceControl(): FormControl {
-  //   return this.researchForm.get('advance') as FormControl;
+  // public loadMembers() {
+  //   this.userSrv.get()
+  //   .subscribe(  
+  //     (res: UsersI) => { 
+  //       const users = res.data;
+  //       this.members =  users.filter(user => user.roles.some(role => role.name === 'researcher'));
+  //     }
+  //   )
   // }
 
-  submitNewResearch() {
+
+ submitNewResearch() {
     this.confirmSrv.setOpenModalConfirm('¿Crear Archivo de Investigación?', '¿Está seguro crear el siguiente arhivo?', ()=> {
 
       const data = this.researchForm.value
+
+      console.log(data);
+      return;
 
       this.confirmSrv.setCloseModalConfirm();
       this.loadingSrv.setOpenLoading();
@@ -137,25 +145,23 @@ export class ResearchCreateComponent implements OnInit {
     const dateIni = this.researchForm.get('date_ini')?.value;
     
     if (dateIni){
+
       const baseYear = new Date(dateIni).getFullYear();
-      let nextYear: number;
 
-      if (this.Integrantes.length === 0) {
-        nextYear = baseYear;
-      } else {
-          const lastYear = Math.max(...this.Integrantes.map(item => item.date));
-          nextYear = lastYear + 1;
-      }
+      const nextYear = this.presupuestoFormArray.length === 0
+      ? baseYear
+      : baseYear + this.presupuestoFormArray.length;
 
-      let contador = this.Integrantes.length + 1;
-      this.Integrantes = [
-        ...this.Integrantes,
-        {
-          id: contador,
-          date: Number(nextYear),
-          value: ""
-        }
-      ]
+      this.presupuestoFormArray.push(
+        this.formBuilder.group({
+          id: [this.presupuestoFormArray.length + 1],
+          date: [nextYear],
+          value: ['', Validators.required]
+        })
+      );
+    
+    } else {
+      this.alertSrv.showError("Seleccione una fecha de inicio");
     }
   }
 
@@ -163,16 +169,16 @@ export class ResearchCreateComponent implements OnInit {
     this.editId = id;
   }
 
-  saveEdit(id: number): void {
-
-    const editedItemIndex = this.Integrantes.findIndex(item => item.id === id);
-    console.log(editedItemIndex)
-
-    const updatedValue = this.Integrantes[editedItemIndex].value;
-    console.log(updatedValue)
-
+  stopEdit() {
     this.editId = null;
-    // Aquí puedes guardar los datos en el servidor si es necesario.
+  }
+
+  saveEdit(id: number): void {
+    const control = this.presupuestoFormArray.at(id - 1);
+    if (control) {
+      console.log('Presupuesto actualizado:', control.value);
+    }
+    this.editId = null;
   }
 
   cancelEdit(): void {
@@ -180,6 +186,18 @@ export class ResearchCreateComponent implements OnInit {
     // Opcional: restaurar valores originales si no guardas inmediatamente.
   }
 
+  deletePresupuesto(index: number) {
+
+    this.presupuestoFormArray.removeAt(index);
+    this.recalculateIds();
+
+  }
+
+  private recalculateIds(): void {
+    this.presupuestoFormArray.controls.forEach((control, i) => {
+      control.get('id')?.setValue(i + 1);
+    });
+  }
 }
 
 
