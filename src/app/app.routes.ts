@@ -36,10 +36,20 @@ export const routes: Routes = [
 
             {
                 path: "investigation",
-                loadComponent: () => import('./dashboard/pages/research/researchIndex/research.component').then(c => c.ResearchComponent),
+                loadComponent: () => import('./dashboard/pages/research/research/research.component').then(c => c.ResearchComponent),
                 data: {
                     breadcrumb: "Investigación"
-                }
+                },
+                children: [
+                    {
+                        path: "",
+                        loadComponent: () => import('./dashboard/pages/research/projects/projects.component').then(c => c.ProjectsComponent),
+                        data: {
+                            breadcrumb: "Proyectos"
+                        }
+                    },
+
+                ]
             },
             {
                 path: "investigation-new",
