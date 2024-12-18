@@ -45,10 +45,37 @@ export const routes: Routes = [
                         path: "",
                         loadComponent: () => import('./dashboard/pages/research/projects/projects.component').then(c => c.ProjectsComponent),
                         data: {
-                            breadcrumb: "Proyectos"
+                            breadcrumb: "Investigación/Proyectos"
                         }
                     },
-
+                    {
+                        path: "projects",
+                        loadComponent: () => import('./dashboard/pages/research/projects/projects.component').then(c => c.ProjectsComponent),
+                        data: {
+                            breadcrumb: "Investigación/Proyectos"
+                        }
+                    },
+                    {
+                        path: "advances",
+                        loadComponent: () => import('./dashboard/pages/research/advanced/advanced.component').then(c => c.AdvancedComponent),
+                        data: {
+                            breadcrumb: "Investigación/Avances"
+                        }
+                    },
+                    {
+                        path: "closing",
+                        loadComponent: () => import('./dashboard/pages/research/closing/closing.component').then(c => c.ClosingComponent),
+                        data: {
+                            breadcrumb: "Investigación/Cierres"
+                        }
+                    },
+                    {
+                        path: "certification",
+                        loadComponent: () => import('./dashboard/pages/research/certification/certification.component').then(c => c.CertificationComponent),
+                        data: {
+                            breadcrumb: "Investigación/Certificación"
+                        }
+                    },
                 ]
             },
             {
