@@ -113,8 +113,8 @@
                     </div>
 
                     <div>
-                        <label for="duration"
-                            class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n *</label>
+                        <label for="duration" class="block text-sm font-medium leading-6 font-controlG">Duraci&oacute;n
+                            *</label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
                             <input type="text" name="duration" id="duration" formControlName="duration"
                                 class="font-controlG block w-full rounded-md border-0 py-1.5 pl-3 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-50 sm:text-sm sm:leading-6"
@@ -123,7 +123,8 @@
 
                         <div *ngIf="researchForm.controls['duration'].invalid && researchForm.controls['duration'].touched"
                             class="text-sm text-red-500 mt-1">
-                            <span class="font-controlG" *ngIf="researchForm.controls['duration'].errors?.['required']">Duraci&oacute;n es
+                            <span class="font-controlG"
+                                *ngIf="researchForm.controls['duration'].errors?.['required']">Duraci&oacute;n es
                                 requerido.</span>
                         </div>
 
@@ -140,20 +141,21 @@
                     </div>
 
                     <div>
-                        <label for="dateIni"
-                            class="block text-sm font-medium leading-6 font-controlG">Fecha de Inicio
+                        <label for="dateIni" class="block text-sm font-medium leading-6 font-controlG">Fecha de Inicio
                         </label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full" formControlName="date_ini"></nz-date-picker>
+                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full"
+                                formControlName="date_ini"></nz-date-picker>
                         </div>
                     </div>
 
                     <div>
-                        <label for="dateEnd"
-                            class="block text-sm font-medium leading-6 font-controlG">Fecha de Culminaci&oacute;n
+                        <label for="dateEnd" class="block text-sm font-medium leading-6 font-controlG">Fecha de
+                            Culminaci&oacute;n
                         </label>
                         <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full" formControlName="date_end"></nz-date-picker>
+                            <nz-date-picker nzPlaceHolder="Seleccione" class="w-full"
+                                formControlName="date_end"></nz-date-picker>
                         </div>
                     </div>
 
@@ -162,13 +164,13 @@
                 <div *ngIf="currentStep === 1" class="space-y-6">
 
                     <div class="flex flex-row">
-                        <button nz-button (click)="addPresupuesto()" >Agregar presupuesto</button>
+                        <button nz-button (click)="addPresupuesto()">Agregar presupuesto</button>
                     </div>
 
                     <div class="flex flex-row">
-                        
+
                         <nz-table #PresupuestoTable nzSize="small" class="font-controlG">
-                            <thead >
+                            <thead>
                                 <tr>
                                     <th nzWidth="250px">Año de Presupuesto</th>
                                     <th nzWidth="250px">Valor</th>
@@ -176,36 +178,25 @@
                                 </tr>
                             </thead>
                             <tbody formArrayName="budgets">
-                                <tr  *ngFor="let item of presupuestoFormArray.controls; let i = index" [formGroupName]="i">
+                                <tr *ngFor="let item of presupuestoFormArray.controls; let i = index"
+                                    [formGroupName]="i">
 
                                     <td>{{ item.get('date')?.value }}</td>
 
                                     <td>
-                                        <input
-                                          *ngIf="editId === item.get('id')?.value"
-                                          type="text"
-                                          formControlName="value"
-                                          class="border border-gray-300 rounded p-1 w-full"
-                                          (blur)="saveEdit(item.get('id')?.value)"
-                                        />
-                                        <div
-                                          *ngIf="editId !== item.get('id')?.value"
-                                          (click)="startEdit(item.get('id')?.value)"
-                                          class="p-1 cursor-pointer"
-                                        >
-                                          {{ item.get('value')?.value || 'Click para editar' }}
+                                        <input *ngIf="editId === item.get('id')?.value" type="text"
+                                            formControlName="value" class="border border-gray-300 rounded p-1 w-full"
+                                            (blur)="saveEdit(item.get('id')?.value)" />
+                                        <div *ngIf="editId !== item.get('id')?.value"
+                                            (click)="startEdit(item.get('id')?.value)" class="p-1 cursor-pointer">
+                                            {{ item.get('value')?.value || 'Click para editar' }}
                                         </div>
-                                      </td>
+                                    </td>
 
                                     <td>
-                                        <button
-                                        nz-button
-                                        nzType="link"
-                                        nzDanger
-                                        (click)="deletePresupuesto(i)"
-                                      >
-                                        Eliminar
-                                      </button>
+                                        <button nz-button nzType="link" nzDanger (click)="deletePresupuesto(i)">
+                                            Eliminar
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -216,19 +207,85 @@
 
                 <div *ngIf="currentStep === 2" class="space-y-6">
 
-                    <div>
-                        <label for="rol" class="block text-sm font-medium leading-6 font-controlG">Integrantes *</label>
-                        <div class="relative mt-2 rounded-md shadow-sm max-w-sm">
-                            <nz-select class="w-full" nzShowSearch nzAllowClear nzMode="multiple"
-                                nzPlaceHolder="Seleccione uno o mas Integrante(s)" formControlName="members"
-                                nzNotFoundContent="No se encontró el integrante">
-                                @for (member of members; track member) {
-                                <nz-option nzValue="{{ member.id }}" nzLabel="{{ member.name }}"></nz-option>
-                                }
-                            </nz-select>
-                        </div>
+                    <div class="flex flex-row">
+                        <button nz-button (click)="addIntegrante()">Agregar Integrantes</button>
+                    </div>
 
+                    <div class="flex flex-row">
 
+                        <nz-table nzSize="small" class="font-controlG">
+                            <thead>
+                                <tr>
+                                    <th nzWidth="200px">Nombre</th>
+                                    <th nzWidth="100px">C&eacute;dula</th>
+                                    <th nzWidth="200px">Cargo</th>
+                                    <th nzWidth="200px">Email</th>
+                                    <th nzWidth="100px"></th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="members">
+                                <tr *ngFor="let item of memberFormArray.controls; let i = index" [formGroupName]="i">
+
+                                    <td>
+                                        <input *ngIf="editIdMember === item.get('id')?.value" 
+                                            type="text"
+                                            formControlName="name" 
+                                            class="border border-gray-300 rounded p-1 w-full"
+                                            (blur)="saveEditMember(item.get('id')?.value)" />
+                                        <div *ngIf="editIdMember !== item.get('id')?.value"
+                                            (click)="startEditMember(item.get('id')?.value)" 
+                                            class="p-1 cursor-pointer">
+                                            {{ item.get('name')?.value || 'agregar...' }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <input *ngIf="editIdMember === item.get('id')?.value" 
+                                            type="text"
+                                            formControlName="dni" 
+                                            class="border border-gray-300 rounded p-1 w-full"
+                                            (blur)="saveEditMember(item.get('id')?.value)" />
+                                        <div *ngIf="editIdMember !== item.get('id')?.value"
+                                            (click)="startEditMember(item.get('id')?.value)" 
+                                            class="p-1 cursor-pointer">
+                                            {{ item.get('dni')?.value || 'agregar...' }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <input *ngIf="editIdMember === item.get('id')?.value" 
+                                            type="text"
+                                            formControlName="departament" 
+                                            class="border border-gray-300 rounded p-1 w-full"
+                                            (blur)="saveEditMember(item.get('id')?.value)" />
+                                        <div *ngIf="editIdMember !== item.get('id')?.value"
+                                            (click)="startEditMember(item.get('id')?.value)" 
+                                            class="p-1 cursor-pointer">
+                                            {{ item.get('departament')?.value || 'agregar...' }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <input *ngIf="editIdMember === item.get('id')?.value" 
+                                            type="email"
+                                            formControlName="email" 
+                                            class="border border-gray-300 rounded p-1 w-full"
+                                            (blur)="saveEditMember(item.get('id')?.value)" />
+                                        <div *ngIf="editIdMember !== item.get('id')?.value"
+                                            (click)="startEditMember(item.get('id')?.value)" 
+                                            class="p-1 cursor-pointer">
+                                            {{ item.get('email')?.value || 'agregar...' }}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <button nz-button nzType="link" nzDanger (click)="deleteMember(i)">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
                     </div>
 
                 </div>

@@ -60,11 +60,12 @@ export class ResearchCreateComponent implements OnInit {
   private alertSrv = inject(AlertsService);
 
   public currentStep = 0;
-  public members: UserDataI[] | null = null;
-
+  
   public presupuesto: PresupuestoData[] = [];
   editId: number | null = null;
-
+  
+  public members: UserDataI[] = [];
+  editIdMember : number | null = null;
 
   researchForm = this.formBuilder.group({
     code: [ '', [Validators.required] ],
@@ -72,17 +73,12 @@ export class ResearchCreateComponent implements OnInit {
     faculty: [ '', [ Validators.required] ],
     rcu: [ '', [ Validators.required] ],
     duration: [ '', [ Validators.required] ],
-    // advance: [ 0, [ Validators.required]  ],
     impact: [ '' ],
-    members: this.formBuilder.array([]),
-    // observation: [ '' ],
-    // budget_one: [ '' ],
-    // budget_two: [ '' ],
-    // budget_three: [ '' ],
     status: [ 'E', [ Validators.required] ],
     date_ini: [ '' ],
     date_end: [ '' ],
-    budgets : this.formBuilder.array([])
+    budgets : this.formBuilder.array([]),
+    members: this.formBuilder.array([])
   });
 
   get presupuestoFormArray(): FormArray {
@@ -102,27 +98,12 @@ export class ResearchCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.loadMembers();
   }
-
-  // public loadMembers() {
-  //   this.userSrv.get()
-  //   .subscribe(  
-  //     (res: UsersI) => { 
-  //       const users = res.data;
-  //       this.members =  users.filter(user => user.roles.some(role => role.name === 'researcher'));
-  //     }
-  //   )
-  // }
-
 
  submitNewResearch() {
     this.confirmSrv.setOpenModalConfirm('¿Crear Archivo de Investigación?', '¿Está seguro crear el siguiente arhivo?', ()=> {
 
       const data = this.researchForm.value
-
-      console.log(data);
-      return;
 
       this.confirmSrv.setCloseModalConfirm();
       this.loadingSrv.setOpenLoading();
@@ -141,6 +122,7 @@ export class ResearchCreateComponent implements OnInit {
     });
   }
 
+  //#region PRESUPUESTO
   public addPresupuesto(): void {
     const dateIni = this.researchForm.get('date_ini')?.value;
     
@@ -169,21 +151,12 @@ export class ResearchCreateComponent implements OnInit {
     this.editId = id;
   }
 
-  stopEdit() {
-    this.editId = null;
-  }
-
   saveEdit(id: number): void {
     const control = this.presupuestoFormArray.at(id - 1);
     if (control) {
       console.log('Presupuesto actualizado:', control.value);
     }
     this.editId = null;
-  }
-
-  cancelEdit(): void {
-    this.editId = null;
-    // Opcional: restaurar valores originales si no guardas inmediatamente.
   }
 
   deletePresupuesto(index: number) {
@@ -198,6 +171,48 @@ export class ResearchCreateComponent implements OnInit {
       control.get('id')?.setValue(i + 1);
     });
   }
+  //#endregion
+
+  //#region INTEGRANTES
+  public addIntegrante(): void {
+    this.memberFormArray.push(
+      this.formBuilder.group(
+        {
+          id : [this.memberFormArray.length + 1],
+          name: ['', Validators.required],
+          dni: ['', Validators.required],
+          departament: [''],
+          email: ['', Validators.required]
+
+        }
+      )
+    );
+  }
+
+  startEditMember(id: number): void {
+    this.editIdMember = id;
+  }
+
+  saveEditMember(id: number): void {
+    const control = this.memberFormArray.at(id - 1);
+    if (control) {
+      console.log('Integrante actualizado:', control.value);
+    }
+    this.editIdMember = null;
+  }
+
+  deleteMember(index: number) {
+
+    this.memberFormArray.removeAt(index);
+    this.recalculateIdsMembers();
+  }
+
+  private recalculateIdsMembers(): void {
+    this.memberFormArray.controls.forEach((control, i) => {
+      control.get('id')?.setValue(i + 1);
+    });
+  }
+  //#endregion
 }
 
 
