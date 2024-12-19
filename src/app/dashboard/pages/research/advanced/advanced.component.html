@@ -1,38 +1,56 @@
 <div class="flex justify-between items-center">
-    <app-breadcrumb />
+  <app-breadcrumb />
+  <div>
+    <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100" (click)="loadResearchs()">
+      <span nz-icon nzType="sync" class="text-lg" nz-tooltip nzTooltipTitle="Actualizar registro"></span>
+    </button>
   </div>
-  
-  <nz-table #basicTable [nzData]="Researchs" nzSize="small" [nzLoading]="loadingResearch" class="font-controlG max-w-full">
-    <thead >
-      <tr>
-        <th>C&oacute;digo</th>
-        <th>Nombre Proyecto</th>
-        <th>RCU</th>
-        <th>Duraci&oacute;n</th>
-        <th nzAlign="center">Estado</th>
-        <th nzWidth="100px"></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (data of basicTable.data; track data.id) {
-        <tr>
-          <td>{{ data.code }}</td>
-          <td>{{ data.name_project }}</td>
-          <td>{{ data.rcu }}</td>
-          <td>{{ data.duration }}</td>
-          <td nzAlign="center">
-            @if (data.status === 'E') {
-              <nz-tag [nzColor]="'green'" [nzBordered]="false">En Ejecuci&oacute;n</nz-tag>
-  
-            }@else {
-              <nz-tag [nzColor]="'pink'" [nzBordered]="false">Finalizado</nz-tag>
-            }
-          </td>
-          <td class="space-x-2">
-  
-  
-          </td>
-        </tr>
-      }
-    </tbody>
-  </nz-table>
+
+</div>
+
+<nz-table #basicTable [nzData]="Researchs" nzSize="small" [nzLoading]="loadingResearch"
+  class="font-controlG max-w-full">
+  <thead>
+    <tr>
+      <th>C&oacute;digo</th>
+      <th>Nombre Proyecto</th>
+      <th>RCU</th>
+      <th>Duraci&oacute;n</th>
+      <th nzAlign="center">Estado</th>
+      <th nzAlign="center">Avance</th>
+      <th nzWidth="100px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track data.id) {
+    <tr>
+      <td>{{ data.code }}</td>
+      <td>{{ data.name_project }}</td>
+      <td>{{ data.rcu }}</td>
+      <td>{{ data.duration }}</td>
+      <td nzAlign="center">
+        @if (data.status === 'E') {
+        <nz-tag [nzColor]="'green'" [nzBordered]="false">En Ejecuci&oacute;n</nz-tag>
+
+        }@else {
+        <nz-tag [nzColor]="'pink'" [nzBordered]="false">Finalizado</nz-tag>
+        }
+      </td>
+      <td>
+        @if (editId != data.id) {
+          <div (click)="startEdit(data.id)">
+            <nz-progress nzPercent="{{data.advance}}" [nzSteps]="10" nzStrokeColor="#1890ff" nzSize="small"></nz-progress>
+          </div>
+        } 
+        @if (editId === data.id) {
+          <nz-slider [(ngModel)]="data.advance" (nzOnAfterChange)="saveEdit(data.id, $event)"></nz-slider>
+        }
+      </td>
+      <td class="space-x-2">
+
+
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
