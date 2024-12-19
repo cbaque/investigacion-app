@@ -13,6 +13,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { AlertsService } from '@services/notification/alerts.service';
+import { ModalObservationComponent } from '../modalObservation/modalObservation.component';
 
 @Component({
   selector: 'app-advanced',
@@ -26,7 +27,7 @@ import { AlertsService } from '@services/notification/alerts.service';
     NzModalModule,
     NzProgressModule,
     NzSliderModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './advanced.component.html',
   styleUrl: './advanced.component.css',
@@ -75,6 +76,15 @@ export class AdvancedComponent implements OnInit {
       }
       ,() => { this.loadingResearch = false }
     )
+
+  }
+
+  showAddObservation(data: ResearchDataI) {
+
+        this.modalService.create({
+          nzContent: ModalObservationComponent,
+          nzData: { data }
+        })
 
   }
 }

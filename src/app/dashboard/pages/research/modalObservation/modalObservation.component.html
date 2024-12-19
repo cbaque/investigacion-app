@@ -1,0 +1,12 @@
+<h2>Registrar Observaci&oacute;n :: {{ data.code }}</h2>
+
+
+<form nz-form [formGroup]="observationForm" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-textarea-count [nzMaxCharacterCount]="250">
+          <textarea rows="4" formControlName="observation" nz-input></textarea>
+        </nz-textarea-count>
+      </nz-form-control>
+    </nz-form-item>
+  </form>

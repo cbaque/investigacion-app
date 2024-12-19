@@ -18,7 +18,7 @@
       <th>Duraci&oacute;n</th>
       <th nzAlign="center">Estado</th>
       <th nzAlign="center">Avance</th>
-      <th nzWidth="100px"></th>
+      <th nzWidth="50px"></th>
     </tr>
   </thead>
   <tbody>
@@ -46,8 +46,14 @@
           <nz-slider [(ngModel)]="data.advance" (nzOnAfterChange)="saveEdit(data.id, $event)"></nz-slider>
         }
       </td>
-      <td class="space-x-2">
-
+      <td class="space-x-2 text-center">
+        <span nz-icon nzType="wechat" 
+          (click)="showAddObservation(data)"
+          nzTheme="outline" 
+          style="color: darkgray" 
+          class="text-lg cursor-pointer" 
+          nz-tooltip 
+          nzTooltipTitle="Agregar Observación"></span>
 
       </td>
     </tr>
