@@ -1,38 +1,55 @@
 <div class="flex justify-between items-center">
-    <app-breadcrumb />
+  <app-breadcrumb />
+
+  <div>
+    <button class="m-2 p-2 rounded-md transition-all hover:bg-gray-100" (click)="loadResearchs()">
+      <span nz-icon nzType="sync" class="text-lg" nz-tooltip nzTooltipTitle="Actualizar registro"></span>
+    </button>
   </div>
-  
-  <nz-table #basicTable [nzData]="Researchs" nzSize="small" [nzLoading]="loadingResearch" class="font-controlG max-w-full">
-    <thead >
-      <tr>
-        <th>C&oacute;digo</th>
-        <th>Nombre Proyecto</th>
-        <th>RCU</th>
-        <th>Duraci&oacute;n</th>
-        <th nzAlign="center">Estado</th>
-        <th nzWidth="100px"></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (data of basicTable.data; track data.id) {
-        <tr>
-          <td>{{ data.code }}</td>
-          <td>{{ data.name_project }}</td>
-          <td>{{ data.rcu }}</td>
-          <td>{{ data.duration }}</td>
-          <td nzAlign="center">
+</div>
+
+<nz-table #basicTable [nzData]="Researchs" nzSize="small" [nzLoading]="loadingResearch"
+  class="font-controlG max-w-full">
+  <thead>
+    <tr>
+      <th>C&oacute;digo</th>
+      <th>Nombre Proyecto</th>
+      <th>RCU</th>
+      <th>Duraci&oacute;n</th>
+      <th nzAlign="center">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track data.id) {
+    <tr>
+      <td>{{ data.code }}</td>
+      <td>{{ data.name_project }}</td>
+      <td>{{ data.rcu }}</td>
+      <td>{{ data.duration }}</td>
+      <td nzAlign="center">
+
+        @if (editId != data.id) {
+          <div (click)="startEdit(data.id)" class="cursor-pointer">
             @if (data.status === 'E') {
               <nz-tag [nzColor]="'green'" [nzBordered]="false">En Ejecuci&oacute;n</nz-tag>
-  
-            }@else {
+            } @else {
               <nz-tag [nzColor]="'pink'" [nzBordered]="false">Finalizado</nz-tag>
             }
-          </td>
-          <td class="space-x-2">
-  
-  
-          </td>
-        </tr>
-      }
-    </tbody>
-  </nz-table>
+          </div>
+        }
+
+        @if (editId === data.id) {
+          <nz-select 
+            [(ngModel)]="data.status" 
+            nzPlaceHolder="Seleccione Estado" 
+            (ngModelChange)="saveEdit(data.id, data.status)">
+            <nz-option nzValue="E" nzLabel="En ejecución"></nz-option>
+            <nz-option nzValue="F" nzLabel="Finalizado"></nz-option>
+          </nz-select>
+        }
+
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
