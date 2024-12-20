@@ -32,7 +32,8 @@ import {
           DeleteTwoTone,
           CloudUploadOutline,
           FolderViewOutline,
-          WechatOutline
+          WechatOutline,
+          InboxOutline
         } from '@ant-design/icons-angular/icons';
 
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -63,7 +64,8 @@ const icons: IconDefinition[] = [
   DeleteTwoTone,
   CloudUploadOutline,
   FolderViewOutline,
-  WechatOutline
+  WechatOutline,
+  InboxOutline
 ];
 
 registerLocaleData(es);

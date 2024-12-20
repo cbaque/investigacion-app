@@ -4,14 +4,12 @@ import { EnvService } from '../env.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ResearchAdvanceService {
+export class ResearchUploadDocService {
 
   private env = inject(EnvService);
 
-  constructor() { }
-
-  update(data: Object, id: number) {
-    return this.env.putQuery(`/research/advance/${id}`, data)
+  post(data: Object) {
+    return this.env.postQuery(`/research/upload`, data)
   }
 
 }

@@ -22,7 +22,7 @@ export interface ResearchDataI {
   expanded: Boolean;
 }
 
-interface Member {
+export interface Member {
   id: number;
   research_article_id: number;
   user_id: number;

@@ -13,7 +13,12 @@
         <td>{{ data.user.name }}</td>
         <td class="space-x-2">
 
-          <span nz-icon nzType="cloud-upload" nzTheme="outline" class="text-lg cursor-pointer" nz-tooltip nzTooltipTitle="Subir Documento"></span>
+          <span nz-icon nzType="cloud-upload" 
+            nzTheme="outline" 
+            class="text-lg cursor-pointer" 
+            nz-tooltip 
+            (click)="openUploadDocument(data)"
+            nzTooltipTitle="Subir Documento"></span>
           <span nz-icon nzType="folder-view" nzTheme="outline" class="text-lg cursor-pointer" nz-tooltip nzTooltipTitle="Ver Documento"></span>
 
         </td>
