@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @Component({
@@ -12,7 +14,9 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzInputModule,
     CommonModule,
     ReactiveFormsModule,
-    NzUploadModule
+    NzUploadModule,
+    NzButtonModule,
+    NzModalModule
   ],
   templateUrl: './callApplicationCreate.component.html',
   styleUrl: './callApplicationCreate.component.css',
